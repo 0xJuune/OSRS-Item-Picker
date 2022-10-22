@@ -1,13 +1,15 @@
 let timestep = '1h'
 let itemId = null
-// const metadataUrl = 'https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json'
+// const metadataUrl = 'https://api.codetabs.com/v1/proxy?quest=https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json'
 // const priceHistoryUrl = `https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=${timestep}&id=${itemId}`
 // const dailyAvg = 'https://prices.runescape.wiki/api/v1/osrs/24h'
 const metadataUrl = '/os_dump.json'
 // const priceHistoryUrl = `/timeseries.json`
 const dailyAvg = '/24h.json'
 
-const dataFetch = (() => {
+// const dataFetch = (() => {
+
+
     let arrHighVolumeItems = []
     let arrMarginPairs = []
     // let historicalMargin = []
@@ -15,11 +17,11 @@ const dataFetch = (() => {
     // this function grabs item info and sorts by highest volume, 
     // only keeping entries over 500,000.
     const createMetaData = async () => { 
-        // const metadataUrl = 'https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json'
+        // const metadataUrl = 'http://crossorigin.me/https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json'
         const response = await fetch(metadataUrl);
         const data = await response.json();
         const values = Object.values(data)
-        
+
         let arrMetaData = values.sort((a, b) => {
             return a.volume - b.volume;
         });
@@ -32,7 +34,6 @@ const dataFetch = (() => {
         filtered.forEach(element => {
             arrHighVolumeItems.push(element.id);
         });
-
     }
 
     const createMarginPairs = async () => {
@@ -59,6 +60,7 @@ const dataFetch = (() => {
         })
 
         sortedMargin.forEach(e => {
+            // arrMarginPairs.push([e.id, e.dailyMargin])
             arrMarginPairs.push([e.id, e.dailyMargin])
             // console.log(`ID: ${e.id} | 24 Hour Margin: ${e.dailyMargin} `)
         });
@@ -132,10 +134,10 @@ const dataFetch = (() => {
 
 
 
-    return {
+//     return {
 
-    }
-})();
+//     }
+// })();
 
 
 //grab metadata
